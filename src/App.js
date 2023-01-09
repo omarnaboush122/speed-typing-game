@@ -1,8 +1,17 @@
+import { useEffect } from "react";
 import { useState } from "react";
 
 function App() {
   const [text, setText] = useState("");
   const [timeRemaining,setTimeRemaining] = useState(5);
+
+  useEffect(()=> {
+    setTimeout(()=> {
+      if(timeRemaining > 0) {
+        setTimeRemaining(time => time - 1);
+      }
+    },1000)
+  },[timeRemaining])
 
   const handleChange = (e) => {
     const { value } = e.target;
