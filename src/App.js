@@ -13,8 +13,7 @@ function App() {
         setTimeRemaining((time) => time - 1);
       }, 1000);
     } else if (timeRemaining === 0) {
-      setIsTimeRunning(false);
-      setWordCount(calculateWordCount(text));
+      endGame();
     }
   }, [timeRemaining, isTimeRunning]);
 
@@ -32,6 +31,11 @@ function App() {
     setIsTimeRunning(true);
     setTimeRemaining(5);
     setText("");
+  }
+
+  function endGame() {
+    setIsTimeRunning(false);
+    setWordCount(calculateWordCount(text));
   }
 
   return (
