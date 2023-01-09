@@ -3,15 +3,18 @@ import { useState } from "react";
 
 function App() {
   const [text, setText] = useState("");
-  const [timeRemaining,setTimeRemaining] = useState(5);
+  const [timeRemaining, setTimeRemaining] = useState(5);
+  const [isTimeRunning, setIsTimeRunning] = useState(false);
 
-  useEffect(()=> {
-    setTimeout(()=> {
-      if(timeRemaining > 0) {
-        setTimeRemaining(time => time - 1);
-      }
-    },1000)
-  },[timeRemaining])
+  useEffect(() => {
+    if (isTimeRunning && timeRemaining > 0) {
+      setTimeout(() => {
+        setTimeRemaining((time) => time - 1);
+      }, 1000);
+    } else if (timeRemaining === 0) {
+      setIsTimeRunning(false);
+    }
+  }, [timeRemaining, isTimeRunning]);
 
   const handleChange = (e) => {
     const { value } = e.target;
@@ -20,14 +23,14 @@ function App() {
 
   const calculateWordCount = () => {
     const wordArray = text.trim().split(" ");
-    return wordArray.filter(word => word !== "").length;
-  }
+    return wordArray.filter((word) => word !== "").length;
+  };
   return (
     <div>
       <h1>How fast do you type?</h1>
       <textarea onChange={handleChange} value={text} />
       <h4>Time remaining: {timeRemaining}</h4>
-      <button onClick={calculateWordCount}>Start</button>
+      <button onClick={() => setIsTimeRunning(true)}>Start</button>
       <h1>Word count: ???</h1>
     </div>
   );
