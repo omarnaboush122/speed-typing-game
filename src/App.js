@@ -2,6 +2,7 @@ import { useState } from "react";
 
 function App() {
   const [text, setText] = useState("");
+  const [timeRemaining,setTimeRemaining] = useState(5);
 
   const handleChange = (e) => {
     const { value } = e.target;
@@ -16,8 +17,8 @@ function App() {
     <div>
       <h1>How fast do you type?</h1>
       <textarea onChange={handleChange} value={text} />
-      <h4>Time remaining: ???</h4>
-      <button onClick={console.log(calculateWordCount())}>Start</button>
+      <h4>Time remaining: {timeRemaining}</h4>
+      <button onClick={calculateWordCount}>Start</button>
       <h1>Word count: ???</h1>
     </div>
   );
